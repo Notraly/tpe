@@ -7,16 +7,31 @@
 
 #include "LedRGB.hpp"
 
-LedRGB::LedRGB()  {
-
+LedRGB::LedRGB(byte pinRed, byte pinGreen, byte pinBlue)  {
+	pinR = pinRed;
+	pinG = pinGreen;
+	pinB = pinBlue;
 }
 LedRGB::~LedRGB() {
 
 }
-void LedRGB::setValue(int red, int green, int blue){
-  r = red;
-  g = green;
-  b = blue;
+void LedRGB::init(){
+	if (pinR != -1) {
+    pinMode(pinR, OUTPUT);
+  }
+  if (pinG != -1) {
+    pinMode(pinG, OUTPUT);
+  }
+	if (pinB != -1) {
+    pinMode(pinB, OUTPUT);
+  }
+
+}
+
+void LedRGB::setValue(float red, float green, float blue){
+	r = red;
+	g = green;
+	b = blue;
 }
 int LedRGB::getRed(){
 	// r étant une variable de l'objet

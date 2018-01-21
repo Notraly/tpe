@@ -9,16 +9,19 @@
 #define LedRGB_hpp
 
 #include <stdio.h>
+#include <arduino.h>
 
 class LedRGB {
 private:
-  int r, g, b;
+  float r, g, b;
+  byte pinR, pinG, pinB;
 public:
-    void setValue(int red, int green, int blue); // Setteur = modif valeurs
+    void init();
+    void setValue(float red, float green, float blue); // Setteur = modif valeurs
     int getRed(); // Getteur = récup valeur
     int getGreen();
     int getBlue();
-    LedRGB(); // Constructeur
+    LedRGB(byte pinRed, byte pinGreen, byte pinBlue); // Constructeur
     ~LedRGB(); // Destructeur
 protected:
 
