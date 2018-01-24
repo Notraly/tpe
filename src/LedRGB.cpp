@@ -5,7 +5,7 @@
 //
 //
 
-#include "LedRGB.hpp"
+#include "LedRGB.h"
 
 LedRGB::LedRGB(byte pinRed, byte pinGreen, byte pinBlue)  {
 	pinR = pinRed;
@@ -27,12 +27,26 @@ void LedRGB::init(){
   }
 
 }
+void LedRGB::changePinValue(byte pin, float color){
+	if (pin != -1) {
+		if (color > 0.5 ) { // digitalWrite(pin, color > 0.5 ? HIGH : LOW);
+			digitalWrite(pin, HIGH);
+		} else {
+			digitalWrite(pin, LOW);
+		}
+	}
+}
 
 void LedRGB::setValue(float red, float green, float blue){
 	r = red;
 	g = green;
 	b = blue;
+
+	changePinValue(pinR, r);
+	changePinValue(pinG, g);
+	changePinValue(pinB, b);
 }
+
 int LedRGB::getRed(){
 	// r étant une variable de l'objet
 	return r;

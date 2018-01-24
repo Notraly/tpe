@@ -15,6 +15,7 @@ class LedRGB {
 private:
   float r, g, b;
   byte pinR, pinG, pinB;
+  void changePinValue(byte pin, float color);
 public:
     void init();
     void setValue(float red, float green, float blue); // Setteur = modif valeurs
