@@ -1,7 +1,7 @@
 //
 //  LedsGroup.hpp
 //
-//  Created by <author> on 20/01/2018.
+//  Created by Notraly on 20/01/2018.
 //
 //
 
@@ -19,14 +19,21 @@ using namespace std;
 
 class LedsGroup {
 private:
-  byte pinGroup;
-  list<LedRGB> leds;
+  const byte pinGroup;
+  list<LedRGB*> leds;
+  bool enable;
+  // Methode
+  void changePinValue(byte pin, bool enable )const;
 public:
-    LedsGroup(byte pinGroupe);
+    LedsGroup(const byte pinGroupe);
     ~LedsGroup();
-    void addLed(LedRGB newLed);
-protected:
+    void addLed(LedRGB* newLed);
+    // Setteur Getteur
+    LedRGB* getLedRGB(const unsigned int id) const;
+    bool isEnable()const;
+    void setEnable(const bool &enable);
 
+protected:
 };
 
 

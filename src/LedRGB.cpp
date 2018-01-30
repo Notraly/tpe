@@ -11,21 +11,24 @@ LedRGB::LedRGB(byte pinRed, byte pinGreen, byte pinBlue)  {
 	pinR = pinRed;
 	pinG = pinGreen;
 	pinB = pinBlue;
+
+	color = {0,0,0};
+
+	enable = false;
 }
 LedRGB::~LedRGB() {
 
 }
 void LedRGB::init(){
-	if (pinR != -1) {
-    pinMode(pinR, OUTPUT);
-  }
-  if (pinG != -1) {
-    pinMode(pinG, OUTPUT);
-  }
-	if (pinB != -1) {
-    pinMode(pinB, OUTPUT);
-  }
-
+	if (pinR != -1) pinMode(pinR, OUTPUT);
+  if (pinG != -1) pinMode(pinG, OUTPUT);
+	if (pinB != -1) pinMode(pinB, OUTPUT);
+	setEnable(true);
+}
+void LedRGB::changePinsValue(){
+	changePinValue(pinR, color.red);
+	changePinValue(pinG, color.green);
+	changePinValue(pinB, color.blue);
 }
 void LedRGB::changePinValue(byte pin, float color){
 	if (pin != -1) {
@@ -37,23 +40,18 @@ void LedRGB::changePinValue(byte pin, float color){
 	}
 }
 
-void LedRGB::setValue(float red, float green, float blue){
-	r = red;
-	g = green;
-	b = blue;
-
-	changePinValue(pinR, r);
-	changePinValue(pinG, g);
-	changePinValue(pinB, b);
+Color LedRGB::getColor(){ return color; }
+float LedRGB::getRed(){ return color.red; }
+float LedRGB::getGreen(){	return color.green; }
+float LedRGB::getBlue(){ return color.blue; }
+void LedRGB::setValue(float red, float green, float blue){ setValue({red,green,blue}); }
+void LedRGB::setValue(Color c){
+	color = c;
+	if(enable) changePinsValue();
 }
 
-int LedRGB::getRed(){
-	// r étant une variable de l'objet
-	return r;
-}
-int LedRGB::getGreen(){
-	return g;
-}
-int LedRGB::getBlue(){
-	return b;
+bool LedRGB::isEnable()const{ return enable; }
+void LedRGB::setEnable(const bool &enable){
+	this->enable = enable;
+	if(enable) changePinsValue();
 }
