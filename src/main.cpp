@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include "./LedRGB.hpp"
+#include "./LedRGB.h"
 
 LedRGB led1 = LedRGB(2,3,-1);
 LedRGB led2 = LedRGB(5,6,7);
