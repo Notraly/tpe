@@ -26,7 +26,7 @@ void LedsGroup::addLed(LedRGB* newLed){
 
 // Setteur Getteur
 
-LedRGB* LedsGroup::getLedRGB(unsigned int id) const{
+LedRGB* LedsGroup::getLedRGB(uint id) const{
   auto a = leds.begin();
   for(;id > 0; id--)
     a++;

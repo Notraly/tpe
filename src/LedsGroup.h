@@ -12,8 +12,9 @@
 #include <stdio.h>
 
 #include <arduino.h>
-#include "LedRGB.h"
 #include <list>
+#include "Util.h"
+#include "LedRGB.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ public:
     ~LedsGroup();
     void addLed(LedRGB* newLed);
     // Setteur Getteur
-    LedRGB* getLedRGB(const unsigned int id) const;
+    LedRGB* getLedRGB(const uint id) const;
     bool isEnable()const;
     void setEnable(const bool &enable);
 
