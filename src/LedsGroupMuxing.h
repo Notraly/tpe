@@ -24,7 +24,7 @@ private: //============================================================ PRIVATE
   // --------------------------------------------------------------- attributes
   list<LedsGroup*> ledsGroups;
   list<LedsGroup*>::iterator iterator;
-  ushort dTMin = 30; // Delta milis min avant changement de group
+  ushort dTMin = 10; // Delta milis min avant changement de group
   ulong nextChange = 0; // Temp en milliseconde du prochain changement de group
   bool isInit = false;
   // ----------------------------------------------------------------- methodes

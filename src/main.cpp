@@ -18,9 +18,10 @@ void setup() {
 
   AnnimLed animation_data_led = {};
   animation_data_led.stepsRed.push_back({0.,0});
-  animation_data_led.stepsRed.push_back({1.,255});
+  animation_data_led.stepsRed.push_back({.5,10});
+  animation_data_led.stepsRed.push_back({1.,10});
   animation_data_led.stepsBlue.push_back({0.5,0});
-  animation_data_led.stepsBlue.push_back({0.5,0});
+  animation_data_led.stepsBlue.push_back({0.5,10});
   AnnimGroup animation_data_group = {animation_data_led,animation_data_led,animation_data_led};
   Annim animation_data = {animation_data_group,animation_data_group,animation_data_group,animation_data_group,animation_data_group};
   annim1 = new TpeAnnimation(animation_data);

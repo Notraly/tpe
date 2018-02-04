@@ -39,14 +39,14 @@ float TpeAnnimation::currentValue(float avancement, const list<AnnimStep>* steps
 
   auto iterateur = steps->begin();
   if(iterateur == steps->end()) return 0.;
-  for(iterateur = steps->begin() ; iterateur != steps->end() && iterateur->setpTime > avancement ;iterateur++){
+  for(iterateur = steps->begin() ; iterateur != steps->end() && iterateur->setpTime <= avancement ;iterateur++){
     last = &*iterateur;
   }
   if(last == nullptr) return iterateur->value;
   if(iterateur == steps->end()) return last->value;
   AnnimStep s1 = *last;
   AnnimStep s2 = *iterateur;
-  float coef1 = (avancement-s1.setpTime)/(s2.setpTime-s1.setpTime);
+  float coef1 = (s2.setpTime-avancement)/(s2.setpTime-s1.setpTime);
 
   return s1.value * coef1 + s2.value * (1-coef1);
 }

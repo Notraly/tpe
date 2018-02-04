@@ -49,7 +49,7 @@ void LedsGroupsManager::loop(){
     Serial.print("\t");
     Serial.print(annimation->currentRed(avancement, 0, 0));
     Serial.print("\t");
-    Serial.print(annimation->currentRed(avancement, 0, 0));
+    Serial.print(annimation->currentBlue(avancement, 0, 0));
     Serial.print("\t");
     Serial.println("");
     int iG = 0;
