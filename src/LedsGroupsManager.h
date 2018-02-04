@@ -1,44 +1,57 @@
 //
-//  Util.hpp
+//  LedsGroupsManager.hpp
 //
 //  Created by Egaro555 on 30/01/2018.
 //
 //
 
-#ifndef Util_h
-#define Util_h
+#ifndef LedsGroupsManager_h
+#define LedsGroupsManager_h
 
 // ===================================================================== INLUDE
 
 #include <stdio.h>
-#include <list>
 #include <arduino.h>
+#include "Util.h"
+#include "LedsGroup.h"
+#include "LedsGroupMuxing.h"
+#include "TpeAnnimation.h"
+#include "TpeConfig.h"
 
 // --------------------------------------------------------------------- Struct
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-
 // ---------------------------------------------------------------------- const
 
-class Util {
+class LedsGroupsManager {
 private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
-  // -------------------------------------------------------------- Constuctors
-  Util(); // INSTANTATION IMPOSIBLE
-  // ---------------------------------------------------------------- Destuctor
-  ~Util();
+  list<LedsGroup*> ledsGroups;
+  LedsGroupMuxing* mux;
+  TpeAnnimation* annimation;
+  bool annimationLoop;
+  uint annimationDuration;
+  ulong annimationStart;
   // ----------------------------------------------------------------- methodes
   // END PRIVATE
 public: //============================================================== PUBLIC
+  // -------------------------------------------------------------- Constuctors
+  LedsGroupsManager(const byte pinsLedsRGB[TPE_NB_LEDRGB_BY_GROUP][2],const byte pinGroups[TPE_NB_GROUP]);
   // ----------------------------------------------------------------- Methodes
-  // static list<LedsGroup> genGroupList(byte** pinsLedsRGB, byte* pinGroups);
+  void init();
+  void loop();
+
+  void changeAnnimation(TpeAnnimation* annimation, uint Durration);
+  void changeAnnimation(TpeAnnimation* annimation, uint Durration, bool loop);
+
   // ------------------------------------------------------- Getteurs/Sertteurs
+  LedsGroup* getGroup(uint index);
+  LedsGroup* getGroups();
+  // ---------------------------------------------------------------- Destuctor
+  ~LedsGroupsManager();
   // END PUBLIC
 protected: //======================================================== PROTECTED
 
 };
 
 
-#endif /* Util_h */
+#endif /* LedsGroupsManager_h */

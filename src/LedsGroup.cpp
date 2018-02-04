@@ -16,7 +16,7 @@ LedsGroup::~LedsGroup() {
 // Methodes pivate
 
 void LedsGroup::changePinValue(byte pin, bool enable) const{
-  digitalWrite(pin, enable ? LOW : HIGH);
+  digitalWrite(pin, enable ? PIN_ANABLE_VALUE : PIN_DISABLE_VALUE);
 }
 
 // Methodes public
@@ -24,6 +24,16 @@ void LedsGroup::addLed(LedRGB* newLed){
   leds.push_back(newLed);
 }
 
+void LedsGroup::init(){
+  pinMode(pinGroup, OUTPUT);
+  changePinValue(pinGroup, enable);
+}
+void LedsGroup::initLedsRGB(){
+  for(LedRGB* led : leds){
+    led->init();
+    led->setEnable(enable);
+  }
+}
 // Setteur Getteur
 
 LedRGB* LedsGroup::getLedRGB(uint id) const{
@@ -32,6 +42,7 @@ LedRGB* LedsGroup::getLedRGB(uint id) const{
     a++;
   return *a;
 }
+list<LedRGB*>* LedsGroup::getLedRGBs(){ return &leds; }
 
 bool LedsGroup::isEnable()const{
   return enable;

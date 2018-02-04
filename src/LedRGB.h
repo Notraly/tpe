@@ -12,28 +12,31 @@
 #include <arduino.h>
 
 struct Color{
-  float red,green,blue;
+  byte red,green,blue;
 };
 
 class LedRGB {
 private:
   Color color;
   byte pinR, pinG, pinB;
-  void changePinValue(byte pin, float color);
+  void changePinValue(byte pin, byte color);
   void changePinsValue();
   bool enable;
 public:
-    void init();
-    void setValue(float red, float green, float blue); // Setteur = modif valeurs
-    void setValue(Color c);
-    float getRed(); // Getteur = récup valeur
-    float getGreen();
-    float getBlue();
-    Color getColor();
-    bool isEnable()const;
-    void setEnable(const bool &enable);
-    LedRGB(byte pinRed, byte pinGreen, byte pinBlue); // Constructeur
-    ~LedRGB(); // Destructeur
+  static const byte PWM_LOW_VALUE = 255;
+  static const byte PWM_HIGH_VALUE = 0;
+
+  void init();
+  void setValue(byte red, byte green, byte blue); // Setteur = modif valeurs
+  void setValue(Color c);
+  float getRed(); // Getteur = récup valeur
+  float getGreen();
+  float getBlue();
+  Color getColor();
+  bool isEnable()const;
+  void setEnable(const bool &enable);
+  LedRGB(byte pinRed, byte pinGreen, byte pinBlue); // Constructeur
+  ~LedRGB(); // Destructeur
 protected:
 
 };

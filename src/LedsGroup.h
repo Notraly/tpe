@@ -26,13 +26,19 @@ private:
   // Methode
   void changePinValue(byte pin, bool enable )const;
 public:
-    LedsGroup(const byte pinGroupe);
-    ~LedsGroup();
-    void addLed(LedRGB* newLed);
-    // Setteur Getteur
-    LedRGB* getLedRGB(const uint id) const;
-    bool isEnable()const;
-    void setEnable(const bool &enable);
+  static const int PIN_DISABLE_VALUE = LOW;
+  static const int PIN_ANABLE_VALUE = HIGH;
+
+  LedsGroup(const byte pinGroupe);
+  ~LedsGroup();
+  void addLed(LedRGB* newLed);
+  void init();
+  void initLedsRGB();
+  // Setteur Getteur
+  LedRGB* getLedRGB(const uint id) const;
+  list<LedRGB*>* getLedRGBs();
+  bool isEnable()const;
+  void setEnable(const bool &enable);
 
 protected:
 };

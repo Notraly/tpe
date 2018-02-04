@@ -1,50 +1,68 @@
 //
-//  LedsGroupMuxing.hpp
+//  TpeAnnimation.hpp
 //
-//  Created by Egaro555 on 30/01/2018.
+//  Created by Egaro555 on 03/02/2018.
 //
 //
 
-#ifndef LedsGroupMuxing_h
-#define LedsGroupMuxing_h
+#ifndef TpeAnnimation_h
+#define TpeAnnimation_h
 
 // ===================================================================== INLUDE
 
 #include <stdio.h>
 #include <list>
-#include "./LedsGroup.h"
-#include "./Util.h"
+#include <Arduino.h>
+#include "Util.h"
+#include "TpeConfig.h"
+
+using namespace std;
 
 // --------------------------------------------------------------------- Struct
+struct AnnimStep{
+  float setpTime; // Betwin 0 and 1
+  byte value; // stepValue;
+};
+struct AnnimLed{
+  list<AnnimStep> stepsRed;
+  list<AnnimStep> stepsBlue;
+};
+struct AnnimGroup{
+  AnnimLed led[TPE_NB_LEDRGB_BY_GROUP];
+};
+struct Annim{
+  AnnimGroup group[TPE_NB_GROUP];
+};
+
 // ---------------------------------------------------------------------- const
 
-class LedsGroupMuxing {
+class TpeAnnimation {
 private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
-  list<LedsGroup*> ledsGroups;
-  list<LedsGroup*>::iterator iterator;
-  ushort dTMin = 30; // Delta milis min avant changement de group
-  ulong nextChange = 0; // Temp en milliseconde du prochain changement de group
-  bool isInit = false;
+  Annim data;
   // ----------------------------------------------------------------- methodes
-  void changeGroup();
   // END PRIVATE
 public: //============================================================== PUBLIC
   // -------------------------------------------------------------- Constuctors
-  LedsGroupMuxing(list<LedsGroup*> ledsGroups);
+  TpeAnnimation();
+  TpeAnnimation(Annim data);
   // ----------------------------------------------------------------- Methodes
-  void init();
-  void loop();
+  float currentRed(float avancement, uint group, uint led);
+  float currentBlue(float avancement, uint group, uint led);
+  float currentRed(float avancement, uint led);
+  float currentBlue(float avancement, uint led);
+  static float currentValue(float avancement, const list<AnnimStep>* steps);
   // ------------------------------------------------------- Getteurs/Sertteurs
-  void setMinDTime(short millis);
-  short getMinDTime()const;
+  AnnimGroup* getAnnimGroup(uint group);
+  AnnimLed* getAnnimLed(uint group, uint led);
+  AnnimLed* getAnnimLed(uint led);
   // ---------------------------------------------------------------- Destuctor
-  ~LedsGroupMuxing();
+  ~TpeAnnimation();
   // END PUBLIC
 protected: //======================================================== PROTECTED
 
 };
 
 
-#endif /* LedsGroupMuxing_h */
+#endif /* TpeAnnimation_h */
