@@ -12,7 +12,7 @@
 #include <stdio.h>
 
 #include <arduino.h>
-#include <list>
+#include <vector>
 #include "Util.h"
 #include "LedRGB.h"
 
@@ -21,7 +21,7 @@ using namespace std;
 class LedsGroup {
 private:
   const byte pinGroup;
-  list<LedRGB*> leds;
+  vector<LedRGB*> leds;
   bool enable;
   // Methode
   void changePinValue(byte pin, bool enable )const;
@@ -36,7 +36,7 @@ public:
   void initLedsRGB();
   // Setteur Getteur
   LedRGB* getLedRGB(const uint id) const;
-  list<LedRGB*>* getLedRGBs();
+  vector<LedRGB*>* getLedRGBs();
   bool isEnable()const;
   void setEnable(const bool &enable);
 

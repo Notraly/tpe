@@ -11,7 +11,7 @@
 // ===================================================================== INLUDE
 
 #include <stdio.h>
-#include <list>
+#include <vector>
 #include <arduino.h>
 
 // --------------------------------------------------------------------- Struct
@@ -33,7 +33,7 @@ private: //============================================================ PRIVATE
   // END PRIVATE
 public: //============================================================== PUBLIC
   // ----------------------------------------------------------------- Methodes
-  // static list<LedsGroup> genGroupList(byte** pinsLedsRGB, byte* pinGroups);
+  // static vector<LedsGroup> genGroupvector(byte** pinsLedsRGB, byte* pinGroups);
   // ------------------------------------------------------- Getteurs/Sertteurs
   // END PUBLIC
 protected: //======================================================== PROTECTED

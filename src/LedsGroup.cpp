@@ -42,7 +42,7 @@ LedRGB* LedsGroup::getLedRGB(uint id) const{
     a++;
   return *a;
 }
-list<LedRGB*>* LedsGroup::getLedRGBs(){ return &leds; }
+vector<LedRGB*>* LedsGroup::getLedRGBs(){ return &leds; }
 
 bool LedsGroup::isEnable()const{
   return enable;

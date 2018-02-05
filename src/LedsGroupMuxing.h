@@ -11,7 +11,7 @@
 // ===================================================================== INLUDE
 
 #include <stdio.h>
-#include <list>
+#include <vector>
 #include "./LedsGroup.h"
 #include "./Util.h"
 
@@ -22,8 +22,8 @@ class LedsGroupMuxing {
 private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
-  list<LedsGroup*> ledsGroups;
-  list<LedsGroup*>::iterator iterator;
+  vector<LedsGroup*> ledsGroups;
+  ushort currentPos;
   ushort dTMin = 10; // Delta milis min avant changement de group
   ulong nextChange = 0; // Temp en milliseconde du prochain changement de group
   bool isInit = false;
@@ -32,13 +32,15 @@ private: //============================================================ PRIVATE
   // END PRIVATE
 public: //============================================================== PUBLIC
   // -------------------------------------------------------------- Constuctors
-  LedsGroupMuxing(list<LedsGroup*> ledsGroups);
+  LedsGroupMuxing(vector<LedsGroup*> ledsGroups);
   // ----------------------------------------------------------------- Methodes
   void init();
   void loop();
+  LedsGroup* currentGroup();
   // ------------------------------------------------------- Getteurs/Sertteurs
   void setMinDTime(short millis);
   short getMinDTime()const;
+  ushort getCurrentPos();
   // ---------------------------------------------------------------- Destuctor
   ~LedsGroupMuxing();
   // END PUBLIC

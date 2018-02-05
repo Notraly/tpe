@@ -11,7 +11,7 @@
 // ===================================================================== INLUDE
 
 #include <stdio.h>
-#include <list>
+#include <vector>
 #include <Arduino.h>
 #include "Util.h"
 #include "TpeConfig.h"
@@ -24,8 +24,8 @@ struct AnnimStep{
   byte value; // stepValue;
 };
 struct AnnimLed{
-  list<AnnimStep> stepsRed;
-  list<AnnimStep> stepsBlue;
+  vector<AnnimStep>* stepsRed;
+  vector<AnnimStep>* stepsBlue;
 };
 struct AnnimGroup{
   AnnimLed led[TPE_NB_LEDRGB_BY_GROUP];
@@ -42,17 +42,23 @@ private: //============================================================ PRIVATE
   // --------------------------------------------------------------- attributes
   Annim data;
   // ----------------------------------------------------------------- methodes
+  static void copyBack(uint length, uint startFrom, vector<AnnimStep> &from, vector<AnnimStep> &to, float offest);
+  static vector<AnnimStep>* oneStep(AnnimStep &step);
   // END PRIVATE
 public: //============================================================== PUBLIC
   // -------------------------------------------------------------- Constuctors
   TpeAnnimation();
   TpeAnnimation(Annim data);
   // ----------------------------------------------------------------- Methodes
-  float currentRed(float avancement, uint group, uint led);
-  float currentBlue(float avancement, uint group, uint led);
-  float currentRed(float avancement, uint led);
-  float currentBlue(float avancement, uint led);
-  static float currentValue(float avancement, const list<AnnimStep>* steps);
+  byte currentRed(float avancement, uint group, uint led);
+  byte currentBlue(float avancement, uint group, uint led);
+  byte currentRed(float avancement, uint led);
+  byte currentBlue(float avancement, uint led);
+  static byte currentValue(float avancement, const vector<AnnimStep> &steps);
+  static byte currentValue(float avancement, const vector<AnnimStep>* steps);
+  static vector<AnnimStep>* offsetSteps(vector<AnnimStep> &inital, float offset);
+  static vector<AnnimStep>* offsetStepsLoop(vector<AnnimStep> &inital, float offset);
+  static vector<AnnimStep>* offsetStepsLoopComplet(vector<AnnimStep> &inital, float offset);
   // ------------------------------------------------------- Getteurs/Sertteurs
   AnnimGroup* getAnnimGroup(uint group);
   AnnimLed* getAnnimLed(uint group, uint led);

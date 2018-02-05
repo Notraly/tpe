@@ -35,9 +35,12 @@ void LedsGroupsManager::init(){
     group->initLedsRGB();
   }
   mux->init();
+  lastMuxGroup = mux->currentGroup();
+  lastMuxPos = mux->getCurrentPos();
 }
 
 void LedsGroupsManager::loop(){
+  mux->loop();
   if(annimation != nullptr){
     float avancement = (millis() - annimationStart)*1./annimationDuration;
     if(annimationLoop && avancement>1){
@@ -52,22 +55,23 @@ void LedsGroupsManager::loop(){
     Serial.print(annimation->currentBlue(avancement, 0, 0));
     Serial.print("\t");
     Serial.println("");
-    int iG = 0;
-    for(LedsGroup* ledsGroup:ledsGroups){
-      int iL = 0;
-      for(LedRGB* led : *ledsGroup->getLedRGBs()){
-          led->setValue(
-            annimation->currentRed(avancement, iG, iL),
-            0,
-            annimation->currentBlue(avancement, iG, iL)
-          );
-        iL++;
-      }
-      iG++;
+
+    if( lastMuxPos != mux->getCurrentPos()){
+      for(LedRGB* led : *lastMuxGroup->getLedRGBs()) led->setValue(0,0,0);
+      lastMuxPos = mux->getCurrentPos();
+      lastMuxGroup = mux->currentGroup();
+    }
+
+    int iL = 0;
+    for(LedRGB* led : *lastMuxGroup->getLedRGBs()){
+        led->setValue(
+          annimation->currentRed(avancement, lastMuxPos, iL),
+          0,
+          annimation->currentBlue(avancement, lastMuxPos, iL)
+        );
+      iL++;
     }
   }
-
-  mux->loop();
 }
 
 

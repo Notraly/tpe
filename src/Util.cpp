@@ -14,8 +14,8 @@
 // PUBLIC ============================================================== PUBLIC
 
 // ------------------------------------------------------------------- Methodes
-/*static list<LedsGroup> Util::genGroupList(byte** pinsLedsRGB, byte* pinGroups){
-  list<LedsGroup> res;
+/*static vector<LedsGroup> Util::genGroupvector(byte** pinsLedsRGB, byte* pinGroups){
+  vector<LedsGroup> res;
   ushort nbLeds = (sizeof(pinsLedsRGB)/(sizeof(*pinsLedsRGB)));
   ushort nbGroup = (sizeof(pinGroups)/sizeof(*pinGroups));
 

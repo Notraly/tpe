@@ -25,8 +25,10 @@ class LedsGroupsManager {
 private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
-  list<LedsGroup*> ledsGroups;
+  vector<LedsGroup*> ledsGroups;
   LedsGroupMuxing* mux;
+  LedsGroup* lastMuxGroup;
+  ushort lastMuxPos;
   TpeAnnimation* annimation;
   bool annimationLoop;
   uint annimationDuration;
