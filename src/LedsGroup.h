@@ -21,7 +21,7 @@ using namespace std;
 class LedsGroup {
 private:
   const byte pinGroup;
-  vector<LedRGB*> leds;
+  vector<LedRGB> leds;
   bool enable;
   // Methode
   void changePinValue(byte pin, bool enable )const;
@@ -31,12 +31,12 @@ public:
 
   LedsGroup(const byte pinGroupe);
   ~LedsGroup();
-  void addLed(LedRGB* newLed);
+  void addLed(LedRGB &newLed);
   void init();
   void initLedsRGB();
   // Setteur Getteur
-  LedRGB* getLedRGB(const uint id) const;
-  vector<LedRGB*>* getLedRGBs();
+  LedRGB & getLedRGB(const uint id);
+  vector<LedRGB> & getLedRGBs();
   bool isEnable()const;
   void setEnable(const bool &enable);
 

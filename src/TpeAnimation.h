@@ -1,12 +1,12 @@
 //
-//  TpeAnnimation.hpp
+//  TpeAnimation.hpp
 //
 //  Created by Egaro555 on 03/02/2018.
 //
 //
 
-#ifndef TpeAnnimation_h
-#define TpeAnnimation_h
+#ifndef TpeAnimation_h
+#define TpeAnimation_h
 
 // ===================================================================== INLUDE
 
@@ -19,56 +19,60 @@
 using namespace std;
 
 // --------------------------------------------------------------------- Struct
-struct AnnimStep{
-  float setpTime; // Betwin 0 and 1
+struct AnimStep{
+  float stepTime; // Betwin 0 and 1
   byte value; // stepValue;
 };
-struct AnnimLed{
-  vector<AnnimStep>* stepsRed;
-  vector<AnnimStep>* stepsBlue;
+struct AnimLed{
+  vector<AnimStep>* stepsRed;
+  vector<AnimStep>* stepsBlue;
 };
-struct AnnimGroup{
-  AnnimLed led[TPE_NB_LEDRGB_BY_GROUP];
+struct AnimGroup{
+  AnimLed led[TPE_NB_LEDRGB_BY_GROUP];
 };
-struct Annim{
-  AnnimGroup group[TPE_NB_GROUP];
+struct Anim{
+  AnimGroup group[TPE_NB_GROUP];
+  Anim* next;
 };
 
 // ---------------------------------------------------------------------- const
 
-class TpeAnnimation {
+class TpeAnimation {
 private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
-  Annim data;
+  Anim data;
   // ----------------------------------------------------------------- methodes
-  static void copyBack(uint length, uint startFrom, vector<AnnimStep> &from, vector<AnnimStep> &to, float offest);
-  static vector<AnnimStep>* oneStep(AnnimStep &step);
+  static void copyBack(uint length, uint startFrom, vector<AnimStep> &from, vector<AnimStep> &to, float offest);
+  static vector<AnimStep>* oneStep(AnimStep &step);
   // END PRIVATE
 public: //============================================================== PUBLIC
   // -------------------------------------------------------------- Constuctors
-  TpeAnnimation();
-  TpeAnnimation(Annim data);
+  TpeAnimation();
+  TpeAnimation(Anim data);
   // ----------------------------------------------------------------- Methodes
   byte currentRed(float avancement, uint group, uint led);
   byte currentBlue(float avancement, uint group, uint led);
   byte currentRed(float avancement, uint led);
   byte currentBlue(float avancement, uint led);
-  static byte currentValue(float avancement, const vector<AnnimStep> &steps);
-  static byte currentValue(float avancement, const vector<AnnimStep>* steps);
-  static vector<AnnimStep>* offsetSteps(vector<AnnimStep> &inital, float offset);
-  static vector<AnnimStep>* offsetStepsLoop(vector<AnnimStep> &inital, float offset);
-  static vector<AnnimStep>* offsetStepsLoopComplet(vector<AnnimStep> &inital, float offset);
+  static byte currentValue(float avancement, const vector<AnimStep> &steps);
+  static byte currentValue(float avancement, const vector<AnimStep>* steps);
+  static vector<AnimStep>* offsetSteps(vector<AnimStep> &inital, float offset);
+  static vector<AnimStep>* offsetStepsLoop(vector<AnimStep> &inital, float offset);
+  static vector<AnimStep>* offsetStepsLoopComplet(vector<AnimStep> &inital, float offset);
+  static void print(const vector<AnimStep> &steps);
   // ------------------------------------------------------- Getteurs/Sertteurs
-  AnnimGroup* getAnnimGroup(uint group);
-  AnnimLed* getAnnimLed(uint group, uint led);
-  AnnimLed* getAnnimLed(uint led);
+  AnimGroup* getAnimGroup(uint group);
+  AnimLed* getAnimLed(uint group, uint led);
+  AnimLed* getAnimLed(uint led);
+  /*bool hasNext()const;
+  void next();*/
   // ---------------------------------------------------------------- Destuctor
-  ~TpeAnnimation();
+  ~TpeAnimation();
   // END PUBLIC
 protected: //======================================================== PROTECTED
 
 };
 
 
-#endif /* TpeAnnimation_h */
+#endif /* TpeAnimation_h */

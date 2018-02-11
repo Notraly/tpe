@@ -47,10 +47,7 @@ void LedRGB::setValue(Color c){
 }
 
 bool LedRGB::isEnable()const{ return enable; }
-void LedRGB::setEnable(const bool &enable){
-	this->enable = enable;
-	if(enable){
-		changePinsValue();
-	}
-
+void LedRGB::setEnable(const bool &enable_){
+	enable = enable_;
+	if(enable)changePinsValue();
 }

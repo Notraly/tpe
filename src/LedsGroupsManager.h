@@ -14,8 +14,7 @@
 #include <arduino.h>
 #include "Util.h"
 #include "LedsGroup.h"
-#include "LedsGroupMuxing.h"
-#include "TpeAnnimation.h"
+#include "TpeAnimation.h"
 #include "TpeConfig.h"
 
 // --------------------------------------------------------------------- Struct
@@ -25,14 +24,13 @@ class LedsGroupsManager {
 private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
-  vector<LedsGroup*> ledsGroups;
-  LedsGroupMuxing* mux;
-  LedsGroup* lastMuxGroup;
-  ushort lastMuxPos;
-  TpeAnnimation* annimation;
-  bool annimationLoop;
-  uint annimationDuration;
-  ulong annimationStart;
+  vector<LedsGroup> ledsGroups;
+  TpeAnimation* animation;
+  bool animationLoop;
+  bool animationPause;
+  uint animationDuration;
+  ulong lastTime;
+  float avancement;
   // ----------------------------------------------------------------- methodes
   // END PRIVATE
 public: //============================================================== PUBLIC
@@ -42,12 +40,15 @@ public: //============================================================== PUBLIC
   void init();
   void loop();
 
-  void changeAnnimation(TpeAnnimation* annimation, uint Durration);
-  void changeAnnimation(TpeAnnimation* annimation, uint Durration, bool loop);
-
+  void changeAnimation(TpeAnimation* animation, uint Duration);
+  void changeAnimation(TpeAnimation* animation, uint Duration, bool loop);
+  void changeAnimation(TpeAnimation* animation, uint Duration, bool loop, bool start);
+  void playPause();
+  void accelerate(float acceleration);
   // ------------------------------------------------------- Getteurs/Sertteurs
   LedsGroup* getGroup(uint index);
   LedsGroup* getGroups();
+  void setAnimationLoop(bool loopAnimation);
   // ---------------------------------------------------------------- Destuctor
   ~LedsGroupsManager();
   // END PUBLIC

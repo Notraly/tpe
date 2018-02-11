@@ -20,7 +20,7 @@ void LedsGroup::changePinValue(byte pin, bool enable) const{
 }
 
 // Methodes public
-void LedsGroup::addLed(LedRGB* newLed){
+void LedsGroup::addLed(LedRGB &newLed){
   leds.push_back(newLed);
 }
 
@@ -29,20 +29,17 @@ void LedsGroup::init(){
   changePinValue(pinGroup, enable);
 }
 void LedsGroup::initLedsRGB(){
-  for(LedRGB* led : leds){
-    led->init();
-    led->setEnable(enable);
+  for(LedRGB led : leds){
+    led.init();
+    led.setEnable(enable);
   }
 }
 // Setteur Getteur
 
-LedRGB* LedsGroup::getLedRGB(uint id) const{
-  auto a = leds.begin();
-  for(;id > 0; id--)
-    a++;
-  return *a;
+LedRGB & LedsGroup::getLedRGB(uint id){
+  return leds[id];
 }
-vector<LedRGB*>* LedsGroup::getLedRGBs(){ return &leds; }
+vector<LedRGB>& LedsGroup::getLedRGBs(){ return leds; }
 
 bool LedsGroup::isEnable()const{
   return enable;
@@ -51,8 +48,8 @@ void LedsGroup::setEnable(const bool &enable){
   this->enable = enable;
   if(!enable)changePinValue(pinGroup,false);
 
-  for(LedRGB* led : leds){
-    led->setEnable(enable);
+  for(LedRGB led : leds){
+    led.setEnable(enable);
   }
 
   if(enable)changePinValue(pinGroup,true);

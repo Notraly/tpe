@@ -14,87 +14,99 @@
 // PUBLIC ============================================================== PUBLIC
 // -------------------------------------------------------------- Constuctors
 
-LedsGroupsManager::LedsGroupsManager(const byte pinsLedsRB[TPE_NB_LEDRGB_BY_GROUP][2],const byte pinGroups[TPE_NB_GROUP])  {
+LedsGroupsManager::LedsGroupsManager(const byte pinsLedsRB[TPE_NB_LEDRGB_BY_GROUP][2],const byte pinGroups[TPE_NB_GROUP]) {
   for(uint iGroup = 0 ; iGroup < TPE_NB_GROUP; iGroup++){
-    LedsGroup* group = new LedsGroup(pinGroups[iGroup]);
+    LedsGroup group = LedsGroup(pinGroups[iGroup]);
     for(uint iLed = 0 ; iLed < TPE_NB_LEDRGB_BY_GROUP; iLed++){
-      LedRGB* led = new LedRGB(pinsLedsRB[iLed][0], -1, pinsLedsRB[iLed][1]);
-      group->addLed(led);
+      LedRGB led = LedRGB(pinsLedsRB[iLed][0], -1, pinsLedsRB[iLed][1]);
+      group.addLed(led);
     }
     ledsGroups.push_back(group);
   }
-  mux = new LedsGroupMuxing(ledsGroups);
 
-  annimation = nullptr;
+  animation = nullptr;
 }
 
 // ------------------------------------------------------------------- Methodes
 void LedsGroupsManager::init(){
-  for(LedsGroup* group : ledsGroups){
-    group->init();
-    group->initLedsRGB();
+  for(LedsGroup group : ledsGroups){
+    group.init();
+    group.initLedsRGB();
   }
-  mux->init();
-  lastMuxGroup = mux->currentGroup();
-  lastMuxPos = mux->getCurrentPos();
+}
+
+void LedsGroupsManager::playPause(){
+  animationPause = !animationPause;
 }
 
 void LedsGroupsManager::loop(){
-  mux->loop();
-  if(annimation != nullptr){
-    float avancement = (millis() - annimationStart)*1./annimationDuration;
-    if(annimationLoop && avancement>1){
-      avancement = 0;
-      annimationStart = millis();
+  if(animation != nullptr){
+    long newTime = millis();
+
+    if (animationPause == false) {
+      avancement += (newTime - lastTime)*1./animationDuration;
     }
 
+    if(avancement>1){
+      /*if(animation->hasNext()){
+        avancement = 0;
+        animationStart = millis();
+        animation->next();
+      }*/
+      if(animationLoop){
+        avancement = 0;
+      }
+    }
+    /*
     Serial.print(avancement);
     Serial.print("\t");
-    Serial.print(annimation->currentRed(avancement, 0, 0));
+    Serial.print(animation->currentRed(avancement, 0, 0));
     Serial.print("\t");
-    Serial.print(annimation->currentBlue(avancement, 0, 0));
+    Serial.print(animation->currentBlue(avancement, 0, 0));
     Serial.print("\t");
+    Serial.print(TpeAnimation::currentValue(avancement,*(animation->getAnimLed(0,0)->stepsRed)));
     Serial.println("");
-
-    if( lastMuxPos != mux->getCurrentPos()){
-      for(LedRGB* led : *lastMuxGroup->getLedRGBs()) led->setValue(0,0,0);
-      lastMuxPos = mux->getCurrentPos();
-      lastMuxGroup = mux->currentGroup();
-    }
-
-    int iL = 0;
-    for(LedRGB* led : *lastMuxGroup->getLedRGBs()){
-        led->setValue(
-          annimation->currentRed(avancement, lastMuxPos, iL),
+    */
+    for(int iG=0;iG<5;iG++){
+      for(int iL=0;iL<3;iL++){
+        ledsGroups[iG].getLedRGB(iL).setValue(
+          animation->currentRed(avancement, iG, iL),
           0,
-          annimation->currentBlue(avancement, lastMuxPos, iL)
+          animation->currentBlue(avancement, iG, iL)
         );
-      iL++;
+      }
+      ledsGroups[iG].setEnable(true);
+      delay(5);
+      ledsGroups[iG].setEnable(false);
     }
+    lastTime = newTime;
   }
 }
 
 
-void LedsGroupsManager::changeAnnimation(TpeAnnimation* annimation, uint duree){ changeAnnimation(annimation, duree, true); }
-void LedsGroupsManager::changeAnnimation(TpeAnnimation* annimation, uint duree, bool loop){
-  this->annimation = annimation;
-  this->annimationDuration = duree;
-  this->annimationLoop = loop;
+void LedsGroupsManager::changeAnimation(TpeAnimation* animation, uint duree){ changeAnimation(animation, duree, true); }
+void LedsGroupsManager::changeAnimation(TpeAnimation* animation, uint duree, bool loop){
+  changeAnimation(animation, duree, loop, true);
+}
+void LedsGroupsManager::changeAnimation(TpeAnimation* animation, uint duree, bool loop, bool start){
+  animationPause = !start;
+  this->animation = animation;
+  this->animationDuration = duree;
+  this->animationLoop = loop;
+  this->avancement = 0;
+}
 
-  this->annimationStart = millis();
+void LedsGroupsManager::accelerate(float acceleration){
+  animationDuration /= acceleration;
 }
 
 // --------------------------------------------------------- Getteurs/Sertteurs
-
+void LedsGroupsManager::setAnimationLoop(bool loopAnimation){
+  animationLoop = loopAnimation;
+}
 // ------------------------------------------------------------------ Destuctor
 
 LedsGroupsManager::~LedsGroupsManager() {
-  for(LedsGroup* group : ledsGroups){
-    for(uint iLed = 0 ; iLed < 3; iLed++){
-      delete group->getLedRGB(iLed);
-    }
-    delete group;
-  }
 }
 
 // END PUBLIC
