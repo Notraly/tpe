@@ -66,8 +66,8 @@ void setup() {
 	};
 	animDflt = new TpeAnimation(animation_dataDflt); // default
 
-	AnimArray* anPwr_0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,0},{0.2,85},{0.2,0},{0.3,170},{0.4,0},{0.5,255},{0.6,0}}));
-	AnimArray* anPwr_1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,85},{0.1,0},{0.2,170},{0.3,0},{0.4,255},{0.5,0}}));
+	AnimArray* anPwr_0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,0},{0.2,20},{0.2,0},{0.3,20},{0.4,0},{0.5,20},{0.6,0}}));
+	AnimArray* anPwr_1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,20},{0.1,0},{0.2,20},{0.3,0},{0.4,20},{0.5,0}}));
 
 	AnimLed animation_data_ledPwr_0 = {anPwr_0,anPwr_1};
 
@@ -214,23 +214,23 @@ void loop() {
 
 		switch(results.value) {
 		case 0xFFA25D://power
-			manager.changeAnimation(animPwr, 10000, false);
+			manager.changeAnimation(animPwr, 1500, false);
 			break;
 		case 0xFF6897://0
 
 			break;
 		case 0xFF30CF://1
-			manager.changeAnimation(anim1, 4000, true, false);
+			manager.changeAnimation(anim1, 8000, false, false);
 			break;
 		case 0xFF18E7://2
-			manager.changeAnimation(anim2, 4000, true);
+			manager.changeAnimation(anim2, 5000, false);
 			break;
 		case 0xFF7A85://3
-			manager.changeAnimation(anim3, 4000, true);
+			manager.changeAnimation(anim3, 6000, false);
 			break;
 
     case 0xFF10EF://4
-      manager.changeAnimation(anim4, 5000, true);
+      manager.changeAnimation(anim4, 10000, false);
         break;
     case 0xFF38C7://5
 
@@ -257,10 +257,10 @@ void loop() {
 			manager.setAnimationLoop(false);
 			break;
     case 0xFFC23D:// >>
-      manager.accelerate(2);
+      manager.accelerate(1.25);
   			break;
     case 0xFF22DD:// <<
-      manager.accelerate(0.5);
+      manager.accelerate(0.8);
       			break;
 		default://n'est pas une commande connue
 			knowCommand = false;

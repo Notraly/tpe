@@ -24,7 +24,7 @@ struct AnimStep{
   byte value; // stepValue;
 };
 struct AnimArray{
-  byte data[100];
+  byte data[101];
 };
 struct AnimLed{
   AnimArray* arrayRed;
@@ -55,10 +55,10 @@ public: //============================================================== PUBLIC
   TpeAnimation();
   TpeAnimation(Anim data);
   // ----------------------------------------------------------------- Methodes
-  byte currentRed(float avancement, uint group, uint led);
-  byte currentBlue(float avancement, uint group, uint led);
-  byte currentRed(float avancement, uint led);
-  byte currentBlue(float avancement, uint led);
+  byte currentRed(byte avancement, uint group, uint led);
+  byte currentBlue(byte avancement, uint group, uint led);
+  byte currentRed(byte avancement, uint led);
+  byte currentBlue(byte avancement, uint led);
   static byte currentValue(float avancement, const vector<AnimStep> &steps);
   static byte currentValue(float avancement, const vector<AnimStep>* steps);
   static vector<AnimStep>* offsetSteps(vector<AnimStep> &inital, float offset);

@@ -24,17 +24,17 @@ TpeAnimation::TpeAnimation(Anim data): data(data)  {
 }
 
 // ------------------------------------------------------------------- Methodes
-byte TpeAnimation::currentRed(float avancement, uint group, uint led){
-  return getAnimLed(group, led)->arrayRed->data[(uint)avancement*100];
+byte TpeAnimation::currentRed(byte avancement, uint group, uint led){
+  return getAnimLed(group, led)->arrayRed->data[avancement];
 }
-byte TpeAnimation::currentBlue(float avancement, uint group, uint led){
-  return getAnimLed(group, led)->arrayBlue->data[(uint)avancement*100];
+byte TpeAnimation::currentBlue(byte avancement, uint group, uint led){
+  return getAnimLed(group, led)->arrayBlue->data[avancement];
 }
-byte TpeAnimation::currentRed(float avancement, uint led){
-  return getAnimLed(led)->arrayRed->data[(uint)avancement*100];
+byte TpeAnimation::currentRed(byte avancement, uint led){
+  return getAnimLed(led)->arrayRed->data[avancement];
 }
-byte TpeAnimation::currentBlue(float avancement, uint led){
-  return getAnimLed(led)->arrayBlue->data[(uint)avancement*100];
+byte TpeAnimation::currentBlue(byte avancement, uint led){
+  return getAnimLed(led)->arrayBlue->data[avancement];
 }
 byte TpeAnimation::currentValue(float avancement, const vector<AnimStep>* steps){
   if(steps == nullptr) return 0.;
@@ -130,7 +130,7 @@ vector<AnimStep>* TpeAnimation::offsetStepsLoopComplet(vector<AnimStep> &steps, 
 }
 AnimArray TpeAnimation::animStepToArray(vector<AnimStep> steps){
   AnimArray res = AnimArray();
-  for(int i=0;i<100;i++){
+  for(int i=0;i<=100;i++){
     res.data[i] = currentValue(i/100.,steps);
   }
   return res;

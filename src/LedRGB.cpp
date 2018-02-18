@@ -43,7 +43,7 @@ float LedRGB::getBlue(){ return color.blue; }
 void LedRGB::setValue(byte red, byte green, byte blue){ setValue({red,green,blue}); }
 void LedRGB::setValue(Color c){
 	color = c;
-	if(enable) changePinsValue();
+	//if(enable) changePinsValue();
 }
 
 bool LedRGB::isEnable()const{ return enable; }

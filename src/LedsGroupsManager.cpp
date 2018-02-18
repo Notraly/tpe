@@ -36,7 +36,11 @@ void LedsGroupsManager::init(){
 }
 
 void LedsGroupsManager::playPause(){
-  animationPause = !animationPause;
+  if(avancement>1){
+    avancement=0;
+  }else{
+    animationPause = !animationPause;
+  }
 }
 
 void LedsGroupsManager::loop(){
@@ -44,13 +48,15 @@ void LedsGroupsManager::loop(){
     long newTime = millis();
 
     if (animationPause == false) {
-      avancement += min((newTime - lastTime)*1./animationDuration,.99);
+      avancement += (newTime - lastTime)*1./animationDuration;
     }
 
-    if(avancement>=1){
-      avancement = animationLoop?0:.99;
+    if(animationLoop && avancement>=1){
+      avancement = 0;
 
     }
+    byte avancementb = min((int)(avancement*100),100);
+    Serial.println((uint)avancementb);
     /*
     Serial.print(avancement);
     Serial.print("\t");
@@ -64,13 +70,13 @@ void LedsGroupsManager::loop(){
     for(int iG=0;iG<5;iG++){
       for(int iL=0;iL<3;iL++){
         ledsGroups[iG].getLedRGB(iL).setValue(
-          animation->currentRed(avancement, iG, iL),
+          animation->currentRed(avancementb, iG, iL),
           0,
-          animation->currentBlue(avancement, iG, iL)
+          animation->currentBlue(avancementb, iG, iL)
         );
       }
       ledsGroups[iG].setEnable(true);
-      delay(5);
+      delay(4);
       ledsGroups[iG].setEnable(false);
     }
     lastTime = newTime;
