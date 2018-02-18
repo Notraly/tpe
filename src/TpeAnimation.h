@@ -23,9 +23,13 @@ struct AnimStep{
   float stepTime; // Betwin 0 and 1
   byte value; // stepValue;
 };
+struct AnimArray{
+  byte data[100];
+};
 struct AnimLed{
-  vector<AnimStep>* stepsRed;
-  vector<AnimStep>* stepsBlue;
+  AnimArray* arrayRed;
+  AnimArray* arrayBlue;
+
 };
 struct AnimGroup{
   AnimLed led[TPE_NB_LEDRGB_BY_GROUP];
@@ -60,6 +64,7 @@ public: //============================================================== PUBLIC
   static vector<AnimStep>* offsetSteps(vector<AnimStep> &inital, float offset);
   static vector<AnimStep>* offsetStepsLoop(vector<AnimStep> &inital, float offset);
   static vector<AnimStep>* offsetStepsLoopComplet(vector<AnimStep> &inital, float offset);
+  static AnimArray animStepToArray(vector<AnimStep> steps);
   static void print(const vector<AnimStep> &steps);
   // ------------------------------------------------------- Getteurs/Sertteurs
   AnimGroup* getAnimGroup(uint group);
@@ -73,6 +78,5 @@ public: //============================================================== PUBLIC
 protected: //======================================================== PROTECTED
 
 };
-
 
 #endif /* TpeAnimation_h */

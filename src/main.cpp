@@ -49,10 +49,10 @@ void setup() {
 	manager.init();
 
 
-	vector<AnimStep>* anHigh = new vector<AnimStep> {{.0,255},{1.,255}};
-	vector<AnimStep>* anLow = new vector<AnimStep> {{.0,0},{1.,0}};
-	vector<AnimStep>* anUp = new vector<AnimStep> {{.0,0},{1.,255}};
-	vector<AnimStep>* anDown = new vector<AnimStep> {{.0,255},{1.,0}};
+	AnimArray* anHigh= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,255},{1.,255}}));
+	AnimArray* anLow= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,0},{1.,0}}));
+	AnimArray* anUp= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,0},{1.,255}}));
+	AnimArray* anDown= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,255},{1.,0}}));
 
 	AnimLed animation_data_ledDflt_0 = {anLow,anLow};
 	AnimGroup animation_data_groupDflt_0 = {animation_data_ledDflt_0,animation_data_ledDflt_0,animation_data_ledDflt_0};
@@ -66,8 +66,8 @@ void setup() {
 	};
 	animDflt = new TpeAnimation(animation_dataDflt); // default
 
-	vector<AnimStep>* anPwr_0 = new vector<AnimStep> {{.0,0},{0.2,85},{0.2,0},{0.3,170},{0.4,0},{0.5,255},{0.6,0}};
-	vector<AnimStep>* anPwr_1 = new vector<AnimStep> {{.0,85},{0.1,0},{0.2,170},{0.3,0},{0.4,255},{0.5,0}};
+	AnimArray* anPwr_0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,0},{0.2,85},{0.2,0},{0.3,170},{0.4,0},{0.5,255},{0.6,0}}));
+	AnimArray* anPwr_1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep> {{.0,85},{0.1,0},{0.2,170},{0.3,0},{0.4,255},{0.5,0}}));
 
 	AnimLed animation_data_ledPwr_0 = {anPwr_0,anPwr_1};
 
@@ -134,33 +134,34 @@ void setup() {
 	anim3 = new TpeAnimation(animation_data3); // Soir
 
 
-  vector<AnimStep>* an4_G0R0= new vector<AnimStep>{{0,255},{0.25,255},{0.45,0}};
-  vector<AnimStep>* an4_G0B0= new vector<AnimStep>{{0,0},{0.25,0},{0.45,255}};
-  vector<AnimStep>* an4_G0R1= new vector<AnimStep>{{0,255},{0.2,255},{0.4,0}};
-  vector<AnimStep>* an4_G0B1= new vector<AnimStep>{{0,0},{0.2,0},{0.4,255}};
-  vector<AnimStep>* an4_G0R2= new vector<AnimStep>{{0,255},{0.1,255},{0.3,0}};
-  vector<AnimStep>* an4_G0B2= new vector<AnimStep>{{0,0},{0.1,0},{0.3,255}};
-  vector<AnimStep>* an4_G1R0= new vector<AnimStep>{{0,255},{0.4,255},{0.6,0}};
-  vector<AnimStep>* an4_G1B0= new vector<AnimStep>{{0,0},{0.4,0},{0.6,255}};
-  vector<AnimStep>* an4_G1R1= new vector<AnimStep>{{0,255},{0.3,255},{0.5,0}};
-  vector<AnimStep>* an4_G1B1= new vector<AnimStep>{{0,0},{0.3,0},{0.5,255}};
-  vector<AnimStep>* an4_G1R2= new vector<AnimStep>{{0,255},{0.25,255},{0.45,0}};
-  vector<AnimStep>* an4_G1B2= new vector<AnimStep>{{0,0},{0.25,0},{0.45,255}};
-  vector<AnimStep>* an4_G2R0= new vector<AnimStep>{{0,0},{0.1,0},{0.3,255},{0.75,255},{0.85,0}};
-  vector<AnimStep>* an4_G2B0= new vector<AnimStep>{{0,0}};
-  vector<AnimStep>* an4_G2R1= new vector<AnimStep>{{0,0},{0.25,0},{0.45,255},{0.7,255},{0.8,0}};
-  vector<AnimStep>* an4_G2B1= new vector<AnimStep>{{0,0}};
-  vector<AnimStep>* an4_G2R2= new vector<AnimStep>{{0,0},{0.2,0},{0.4,255},{0.65,255},{0.75,0}};
-  vector<AnimStep>* an4_G2B2= new vector<AnimStep>{{0,255},{0.2,255},{0.4,0},{0.65,0},{0.75,255}};
-  vector<AnimStep>* an4_G3R0= new vector<AnimStep>{{0,0},{0.1,0},{0.3,255},{0.6,255},{0.7,0}};
-  vector<AnimStep>* an4_G3B0= new vector<AnimStep>{{0,255},{0.1,255},{0.3,0},{0.6,0},{0.7,255}};
-  vector<AnimStep>* an4_G3R1= new vector<AnimStep>{{0,0}};
-  vector<AnimStep>* an4_G3B1= new vector<AnimStep>{{0,255}};
-  vector<AnimStep>* an4_G3R2= new vector<AnimStep>{{0,0}};
-  vector<AnimStep>* an4_G3B2= new vector<AnimStep>{{0,255}};
+	AnimArray* an4_G0R0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.25,255},{0.45,0}}));
+  AnimArray* an4_G0B0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.25,0},{0.45,255}}));
+  AnimArray* an4_G0R1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.2,255},{0.4,0}}));
+  AnimArray* an4_G0B1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.2,0},{0.4,255}}));
+  AnimArray* an4_G0R2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.1,255},{0.3,0}}));
+  AnimArray* an4_G0B2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.1,0},{0.3,255}}));
+  AnimArray* an4_G1R0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.4,255},{0.6,0}}));
+  AnimArray* an4_G1B0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.4,0},{0.6,255}}));
+  AnimArray* an4_G1R1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.3,255},{0.5,0}}));
+  AnimArray* an4_G1B1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.3,0},{0.5,255}}));
+  AnimArray* an4_G1R2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.25,255},{0.45,0}}));
+  AnimArray* an4_G1B2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.25,0},{0.45,255}}));
+  AnimArray* an4_G2R0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.1,0},{0.3,255},{0.75,255},{0.85,0}}));
+  AnimArray* an4_G2B0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0}}));
+  AnimArray* an4_G2R1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.25,0},{0.45,255},{0.7,255},{0.8,0}}));
+  AnimArray* an4_G2B1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0}}));
+  AnimArray* an4_G2R2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.2,0},{0.4,255},{0.65,255},{0.75,0}}));
+  AnimArray* an4_G2B2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.2,255},{0.4,0},{0.65,0},{0.75,255}}));
+  AnimArray* an4_G3R0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.1,0},{0.3,255},{0.6,255},{0.7,0}}));
+  AnimArray* an4_G3B0= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255},{0.1,255},{0.3,0},{0.6,0},{0.7,255}}));
+	for(int i=0;i<100;i++)Serial.println((int) an4_G3B0->data[i]);
+  AnimArray* an4_G3R1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0}}));
+  AnimArray* an4_G3B1= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255}}));
+  AnimArray* an4_G3R2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0}}));
+  AnimArray* an4_G3B2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255}}));
 
-  vector<AnimStep>* an4_G4R2= new vector<AnimStep>{{0,0},{0.2,0},{0.4,255},{0.8,255},{1,0}};
-  vector<AnimStep>* an4_G4B2= new vector<AnimStep>{{0,255}};
+  AnimArray* an4_G4R2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,0},{0.2,0},{0.4,255},{0.8,255},{1,0}}));
+  AnimArray* an4_G4B2= new AnimArray(TpeAnimation::animStepToArray(vector<AnimStep>{{0,255}}));
 
 AnimLed animation_data_led4_G0_0 = {an4_G0R0,an4_G0B0};
 AnimLed animation_data_led4_G0_1 = {an4_G0R1,an4_G0B1};

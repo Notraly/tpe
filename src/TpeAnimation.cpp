@@ -14,6 +14,8 @@
 // PUBLIC ============================================================== PUBLIC
 // -------------------------------------------------------------- Constuctors
 
+
+
 TpeAnimation::TpeAnimation()  {
 
 }
@@ -23,16 +25,16 @@ TpeAnimation::TpeAnimation(Anim data): data(data)  {
 
 // ------------------------------------------------------------------- Methodes
 byte TpeAnimation::currentRed(float avancement, uint group, uint led){
-  return currentValue(avancement ,getAnimLed(group, led)->stepsRed);
+  return getAnimLed(group, led)->arrayRed->data[(uint)avancement*100];
 }
 byte TpeAnimation::currentBlue(float avancement, uint group, uint led){
-  return currentValue(avancement ,getAnimLed(group, led)->stepsBlue);
+  return getAnimLed(group, led)->arrayBlue->data[(uint)avancement*100];
 }
 byte TpeAnimation::currentRed(float avancement, uint led){
-  return currentValue(avancement ,getAnimLed(led)->stepsRed);
+  return getAnimLed(led)->arrayRed->data[(uint)avancement*100];
 }
 byte TpeAnimation::currentBlue(float avancement, uint led){
-  return currentValue(avancement ,getAnimLed(led)->stepsBlue);
+  return getAnimLed(led)->arrayBlue->data[(uint)avancement*100];
 }
 byte TpeAnimation::currentValue(float avancement, const vector<AnimStep>* steps){
   if(steps == nullptr) return 0.;
@@ -124,6 +126,13 @@ vector<AnimStep>* TpeAnimation::offsetStepsLoopComplet(vector<AnimStep> &steps, 
   copyBack(nbStepBeforOffset,0,steps,*res,offset);
   if(cutcourbe)res->push_back({1.,cutValue});
 
+  return res;
+}
+AnimArray TpeAnimation::animStepToArray(vector<AnimStep> steps){
+  AnimArray res = AnimArray();
+  for(int i=0;i<100;i++){
+    res.data[i] = currentValue(i/100.,steps);
+  }
   return res;
 }
 // --------------------------------------------------------- Getteurs/Sertteurs

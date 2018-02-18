@@ -44,18 +44,12 @@ void LedsGroupsManager::loop(){
     long newTime = millis();
 
     if (animationPause == false) {
-      avancement += (newTime - lastTime)*1./animationDuration;
+      avancement += min((newTime - lastTime)*1./animationDuration,.99);
     }
 
-    if(avancement>1){
-      /*if(animation->hasNext()){
-        avancement = 0;
-        animationStart = millis();
-        animation->next();
-      }*/
-      if(animationLoop){
-        avancement = 0;
-      }
+    if(avancement>=1){
+      avancement = animationLoop?0:.99;
+
     }
     /*
     Serial.print(avancement);
@@ -64,7 +58,7 @@ void LedsGroupsManager::loop(){
     Serial.print("\t");
     Serial.print(animation->currentBlue(avancement, 0, 0));
     Serial.print("\t");
-    Serial.print(TpeAnimation::currentValue(avancement,*(animation->getAnimLed(0,0)->stepsRed)));
+    Serial.print(TpeAnimation::currentValue(avancement,*(animation->getAnimLed(0,0)->arrayRed)));
     Serial.println("");
     */
     for(int iG=0;iG<5;iG++){
