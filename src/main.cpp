@@ -258,7 +258,7 @@ void loop() {
 			manager.changeAnimation(animPwr, 1500, false);
 			break;
 		case 0xFF6897://0
-			manager.changeAnimation(anim0, 7000, true);
+			manager.changeAnimation(anim0, 5000, true);
 
 			break;
 		case 0xFF30CF://1
