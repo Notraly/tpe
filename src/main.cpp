@@ -202,6 +202,12 @@ AnimLed animation_data_led4_G4_1 = {an4_G4R2,an4_G4B2};
   };
 anim4 = new TpeAnimation(animation_data4); // Soir
 
+
+	TpeAnimation* anim0_4 = new TpeAnimation(animation_data4);
+	TpeAnimation* anim0_3 = new TpeAnimation(animation_data3,anim0_4);
+	TpeAnimation* anim0_2 = new TpeAnimation(animation_data2,anim0_3);
+	anim0 = new TpeAnimation(animation_data1,anim0_2);
+
 	manager.changeAnimation(animDflt, 1, true, false);
 
 AnimLed animation_data_led5_0 = {anLow,anLow};
@@ -252,6 +258,7 @@ void loop() {
 			manager.changeAnimation(animPwr, 1500, false);
 			break;
 		case 0xFF6897://0
+			manager.changeAnimation(anim0, 7000, true);
 
 			break;
 		case 0xFF30CF://1

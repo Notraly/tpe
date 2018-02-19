@@ -25,6 +25,7 @@ private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
   vector<LedsGroup> ledsGroups;
+  TpeAnimation* firstAnimation;
   TpeAnimation* animation;
   bool animationLoop;
   bool animationPause;

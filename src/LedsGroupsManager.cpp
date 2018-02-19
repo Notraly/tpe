@@ -37,7 +37,8 @@ void LedsGroupsManager::init(){
 
 void LedsGroupsManager::playPause(){
   if(avancement>1){
-    avancement=0;
+    avancement = 0;
+    animation = firstAnimation;
   }else{
     animationPause = !animationPause;
   }
@@ -50,10 +51,14 @@ void LedsGroupsManager::loop(){
     if (animationPause == false) {
       avancement += (newTime - lastTime)*1./animationDuration;
     }
-
-    if(animationLoop && avancement>=1){
-      avancement = 0;
-
+    if(avancement>=1){
+      if(animation->getNext() != nullptr){
+        avancement = 0;
+        animation = animation->getNext();
+      }else if(animationLoop){
+        avancement = 0;
+        animation = firstAnimation;
+      }
     }
     byte avancementb = min((int)(avancement*100),100);
     Serial.println((uint)avancementb);
@@ -91,6 +96,7 @@ void LedsGroupsManager::changeAnimation(TpeAnimation* animation, uint duree, boo
 void LedsGroupsManager::changeAnimation(TpeAnimation* animation, uint duree, bool loop, bool start){
   animationPause = !start;
   this->animation = animation;
+  this->firstAnimation = animation;
   this->animationDuration = duree;
   this->animationLoop = loop;
   this->avancement = 0;

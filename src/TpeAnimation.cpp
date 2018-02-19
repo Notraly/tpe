@@ -22,6 +22,9 @@ TpeAnimation::TpeAnimation()  {
 TpeAnimation::TpeAnimation(Anim data): data(data)  {
 
 }
+TpeAnimation::TpeAnimation(Anim data,TpeAnimation* next): data(data),next(next)  {
+
+}
 
 // ------------------------------------------------------------------- Methodes
 byte TpeAnimation::currentRed(byte avancement, uint group, uint led){
@@ -145,6 +148,7 @@ AnimLed* TpeAnimation::getAnimLed(uint group, uint led){
 AnimLed* TpeAnimation::getAnimLed(uint led){
   return getAnimLed(led/TPE_NB_LEDRGB_BY_GROUP , led%TPE_NB_LEDRGB_BY_GROUP );
 }
+TpeAnimation* TpeAnimation::getNext(){return next;}
 // ------------------------------------------------------------------ Destuctor
 
 TpeAnimation::~TpeAnimation() {

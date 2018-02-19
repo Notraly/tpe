@@ -46,6 +46,7 @@ private: //============================================================ PRIVATE
   // -------------------------------------------------------------------- const
   // --------------------------------------------------------------- attributes
   Anim data;
+  TpeAnimation* next = nullptr;
   // ----------------------------------------------------------------- methodes
   static void copyBack(uint length, uint startFrom, vector<AnimStep> &from, vector<AnimStep> &to, float offest);
   static vector<AnimStep>* oneStep(AnimStep &step);
@@ -54,6 +55,7 @@ public: //============================================================== PUBLIC
   // -------------------------------------------------------------- Constuctors
   TpeAnimation();
   TpeAnimation(Anim data);
+  TpeAnimation(Anim data,TpeAnimation* next);
   // ----------------------------------------------------------------- Methodes
   byte currentRed(byte avancement, uint group, uint led);
   byte currentBlue(byte avancement, uint group, uint led);
@@ -70,6 +72,7 @@ public: //============================================================== PUBLIC
   AnimGroup* getAnimGroup(uint group);
   AnimLed* getAnimLed(uint group, uint led);
   AnimLed* getAnimLed(uint led);
+  TpeAnimation* getNext();
   /*bool hasNext()const;
   void next();*/
   // ---------------------------------------------------------------- Destuctor
