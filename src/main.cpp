@@ -27,6 +27,9 @@ TpeAnimation* anim1 = nullptr;
 TpeAnimation* anim2 = nullptr;
 TpeAnimation* anim3 = nullptr;
 TpeAnimation* anim4 = nullptr;
+TpeAnimation* anim5 = nullptr;
+TpeAnimation* anim6 = nullptr;
+
 
 void setup() {
 
@@ -201,6 +204,38 @@ anim4 = new TpeAnimation(animation_data4); // Soir
 
 	manager.changeAnimation(animDflt, 1, true, false);
 
+AnimLed animation_data_led5_0 = {anLow,anLow};
+AnimLed animation_data_led5_1 = {anLow,anHigh};
+
+AnimGroup animation_data_group5_0 = {animation_data_led5_0,animation_data_led5_0,animation_data_led5_0};
+AnimGroup animation_data_group5_1 = {animation_data_led5_1,animation_data_led5_1,animation_data_led5_1};
+AnimGroup animation_data_group5_2 = {animation_data_led5_0,animation_data_led5_0,animation_data_led5_1};
+
+Anim animation_data5 = {
+	animation_data_group5_0,
+	animation_data_group5_0,
+	animation_data_group5_2,
+	animation_data_group5_1,
+	animation_data_group5_1
+};
+anim5 = new TpeAnimation(animation_data5); // Conduit air frais
+
+AnimLed animation_data_led6_0 = {anLow,anLow};
+AnimLed animation_data_led6_1 = {anHigh,anLow};
+
+
+AnimGroup animation_data_group6_0 = {animation_data_led6_0,animation_data_led6_0,animation_data_led6_0};
+AnimGroup animation_data_group6_1 = {animation_data_led6_1,animation_data_led6_1,animation_data_led6_1};
+AnimGroup animation_data_group6_2 = {animation_data_led6_1,animation_data_led6_0,animation_data_led6_0};
+
+Anim animation_data6 = {
+	animation_data_group6_0,
+	animation_data_group6_0,
+	animation_data_group6_1,
+	animation_data_group6_2,
+	animation_data_group6_1
+};
+anim6 = new TpeAnimation(animation_data6); // Conduit air chaud
 }
 
 void loop() {
@@ -233,10 +268,10 @@ void loop() {
       manager.changeAnimation(anim4, 10000, false);
         break;
     case 0xFF38C7://5
-
+			manager.changeAnimation(anim5, 10000, false);
 			break;
 		case 0xFF5AA5://6
-
+			manager.changeAnimation(anim6, 10000, false);
 			break;
 		case 0xFF42BD://7
 
